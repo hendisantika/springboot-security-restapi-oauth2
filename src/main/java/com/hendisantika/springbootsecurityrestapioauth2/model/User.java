@@ -1,6 +1,8 @@
 package com.hendisantika.springbootsecurityrestapioauth2.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,6 +14,8 @@ import lombok.Data;
  * Time: 06.45
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private Long id;
     private String name;
