@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
@@ -53,6 +54,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret(secret)
                 .accessTokenValiditySeconds(120).//Access token 2 minutes.
                 refreshTokenValiditySeconds(600);//Refresh token 10 minutes.
+    }
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
+                .authenticationManager(authenticationManager);
     }
 
 }
