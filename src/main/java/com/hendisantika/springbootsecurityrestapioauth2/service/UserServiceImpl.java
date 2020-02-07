@@ -3,6 +3,7 @@ package com.hendisantika.springbootsecurityrestapioauth2.service;
 import com.hendisantika.springbootsecurityrestapioauth2.model.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,4 +26,13 @@ public class UserServiceImpl implements UserService {
         users = getDummyUsers();
     }
 
+    private static List<User> getDummyUsers() {
+        List<User> users = new ArrayList<User>();
+        users.add(new User(counter.incrementAndGet(), "H", "test@gmail.com", 7));
+        users.add(new User(counter.incrementAndGet(), "E", "test@gmail.com", 7));
+        users.add(new User(counter.incrementAndGet(), "N", "test@gmail.com", 7));
+        users.add(new User(counter.incrementAndGet(), "R", "test@gmail.com", 7));
+        users.add(new User(counter.incrementAndGet(), "Y", "test@gmail.com", 3));
+        return users;
+    }
 }
