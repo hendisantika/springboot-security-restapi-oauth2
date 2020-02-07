@@ -1,6 +1,10 @@
 package com.hendisantika.springbootsecurityrestapioauth2.service;
 
+import com.hendisantika.springbootsecurityrestapioauth2.model.User;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,4 +17,12 @@ import org.springframework.stereotype.Service;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+    private static final AtomicLong counter = new AtomicLong();
+
+    private static List<User> users;
+
+    static {
+        users = getDummyUsers();
+    }
+
 }
