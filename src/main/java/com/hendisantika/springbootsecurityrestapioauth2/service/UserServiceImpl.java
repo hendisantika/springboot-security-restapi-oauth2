@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
         users = getDummyUsers();
     }
 
+    @Override
+    public List<User> findAllUsers() {
+        return users;
+    }
+
     private static List<User> getDummyUsers() {
         List<User> users = new ArrayList<User>();
         users.add(new User(counter.incrementAndGet(), "H", "test@gmail.com", 7));
