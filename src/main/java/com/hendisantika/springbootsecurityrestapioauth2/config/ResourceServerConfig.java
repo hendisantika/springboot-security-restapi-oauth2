@@ -1,8 +1,10 @@
 package com.hendisantika.springbootsecurityrestapioauth2.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,4 +18,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
+    @Value("${oauth.resource.id}")
+    private String resourceId;
+
+    private ClientDetailsService clientDetailsService;
 }
