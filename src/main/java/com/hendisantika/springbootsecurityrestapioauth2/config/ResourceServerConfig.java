@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 
 /**
@@ -22,4 +23,8 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
     private String resourceId;
 
     private ClientDetailsService clientDetailsService;
+
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.resourceId(resourceId).stateless(false);
+    }
 }
