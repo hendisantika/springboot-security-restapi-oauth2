@@ -54,4 +54,16 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin").password("12345").roles("ADMIN").and()
                 .withUser("naruto").password("12345").roles("USER");
     }
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients
+                .inMemory()
+                .withClient(Const.CLIENT_ID)
+                .secret(Const.CLIENT_SECRET)
+                .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN)
+                .scopes(SCOPE_READ, SCOPE_WRITE, TRUST)
+                .accessTokenValiditySeconds(VALID_FOREVER)
+                .refreshTokenValiditySeconds(VALID_FOREVER);
+    }
 }
