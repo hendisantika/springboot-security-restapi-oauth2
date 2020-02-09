@@ -112,4 +112,10 @@ public class RestClient {
 
         });
     }
+
+    public static void main(String[] args) {
+        AuthTokenInfo tokenInfo = sendTokenRequest();
+        findAllUsers(tokenInfo);
+
+    }
 }
