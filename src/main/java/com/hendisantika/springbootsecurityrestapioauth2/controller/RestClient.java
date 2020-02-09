@@ -1,5 +1,6 @@
 package com.hendisantika.springbootsecurityrestapioauth2.controller;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -30,6 +31,18 @@ public class RestClient {
     private static HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        return headers;
+    }
+
+    /*
+     * Add HTTP Authorization header, using Basic-Authentication to send client-credentials.
+     */
+    private static HttpHeaders getHeadersWithClientCredentials() {
+        String plainClientCredentials = "my-trusted-client:secret"; //clientId + secret
+        String base64ClientCredentials = new String(Base64.encodeBase64(plainClientCredentials.getBytes()));
+
+        HttpHeaders headers = getHeaders();
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
         return headers;
     }
 }
