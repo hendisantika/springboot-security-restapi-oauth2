@@ -1,5 +1,10 @@
 package com.hendisantika.springbootsecurityrestapioauth2.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
+import java.util.Arrays;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : springboot-security-restapi-oauth2
@@ -18,4 +23,13 @@ public class RestClient {
     public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=henry&password=abc123";
 
     public static final String QPM_ACCESS_TOKEN = "?access_token=";
+
+    /*
+     * HTTP Headers.
+     */
+    private static HttpHeaders getHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        return headers;
+    }
 }
