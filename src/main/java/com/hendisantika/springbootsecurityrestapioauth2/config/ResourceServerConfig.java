@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
@@ -80,5 +82,13 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
         handler.setRequestFactory(new DefaultOAuth2RequestFactory(clientDetailsService));
         handler.setClientDetailsService(clientDetailsService);
         return handler;
+    }
+
+    @Bean
+    @Autowired
+    public ApprovalStore approvalStore(TokenStore tokenStore) throws Exception {
+        TokenApprovalStore store = new TokenApprovalStore();
+        store.setTokenStore(tokenStore);
+        return store;
     }
 }
