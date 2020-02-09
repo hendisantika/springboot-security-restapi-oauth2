@@ -1,7 +1,10 @@
 package com.hendisantika.springbootsecurityrestapioauth2.controller;
 
 import com.hendisantika.springbootsecurityrestapioauth2.model.AuthTokenInfo;
+import com.hendisantika.springbootsecurityrestapioauth2.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,6 +25,7 @@ import java.util.LinkedHashMap;
  * Date: 09/02/20
  * Time: 08.26
  */
+@Slf4j
 public class RestClient {
     public static final String REST_SERVICE_URI = "http://localhost:8080/Spring-Boot-Security-RestAPI-OAuth2";
 
@@ -72,12 +77,39 @@ public class RestClient {
             tokenInfo.setRefreshToken((String) map.get("refresh_token"));
             tokenInfo.setExpiresIn((int) map.get("expires_in"));
             tokenInfo.setScope((String) map.get("scope"));
-            System.out.println(tokenInfo);
+            log.info(tokenInfo.toString());
 
         } else {
-            System.out.println("No user exist----------");
+            log.info("No user exist----------");
 
         }
         return tokenInfo;
+    }
+
+    /*
+     * GET request to get list of all users.
+     */
+    private static void findAllUsers(AuthTokenInfo tokenInfo) {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpEntity<String> request = new HttpEntity<String>(getHeaders());
+
+
+        ResponseEntity<List<User>> response =
+                restTemplate.exchange(
+                        REST_SERVICE_URI + "/user/" + QPM_ACCESS_TOKEN + tokenInfo.getAccessToken(),
+                        HttpMethod.GET,
+                        request,
+                        new ParameterizedTypeReference<List<User>>() {
+                        });
+
+        List<User> listUser = response.getBody();
+
+        listUser.forEach(item -> {
+
+            log.info("id " + item.getId() + " name  " + item.getName() + " email " + item.getEmail() + " age " + item.getAge());
+
+        });
     }
 }
