@@ -1,12 +1,17 @@
 # Spring Boot Security REST API with OAuth2
 
-A Spring Boot 4.0 application demonstrating OAuth2 Authorization Server and Resource Server implementation using Spring
+[![Java CI with Maven](https://github.com/hendisantika/springboot-security-restapi-oauth2/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/springboot-security-restapi-oauth2/actions/workflows/maven.yml)
+![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.2-6DB33F?logo=springboot)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-025E8C?logo=dependabot)](.github/dependabot.yml)
+
+A Spring Boot 4.1 application demonstrating OAuth2 Authorization Server and Resource Server implementation using Spring
 Security 7.
 
 ## Tech Stack
 
-- Java 21
-- Spring Boot 4.0.0
+- Java 25 (LTS)
+- Spring Boot 4.1.2
 - Spring Security 7
 - Spring Authorization Server
 - Lombok
@@ -22,8 +27,8 @@ Security 7.
 
 ## Prerequisites
 
-- JDK 21 or later
-- Maven 3.9+
+- JDK 25 or later
+- Maven 3.9+ (or use the bundled Maven Wrapper `./mvnw`, which downloads Maven 3.10.0)
 
 ## Running the Application
 
@@ -115,3 +120,24 @@ Key configuration in `AuthorizationServerConfig.java`:
 ```bash
 ./mvnw test
 ```
+
+## CI/CD
+
+GitHub Actions workflow [`.github/workflows/maven.yml`](.github/workflows/maven.yml):
+
+- Runs on every push and pull request to `master` (and manually via `workflow_dispatch`)
+- Builds and tests with **Temurin JDK 25** using `./mvnw -B verify` with Maven dependency caching
+- Least-privilege `permissions` and `concurrency` (cancels outdated runs on the same branch)
+- Submits the Maven dependency graph to GitHub (only on push to `master`) to improve Dependabot alerts
+
+## Dependency Updates (Dependabot)
+
+Configured in [`.github/dependabot.yml`](.github/dependabot.yml):
+
+| Ecosystem      | Schedule                 | Grouping                                         |
+|----------------|--------------------------|--------------------------------------------------|
+| Maven          | Daily, 21:00 WIB         | `spring`, `test`, `maven-plugins` (minor/patch)  |
+| GitHub Actions | Weekly (Mon), 21:00 WIB  | All actions in a single PR                       |
+
+PRs are labeled (`dependencies`, `java` / `github-actions`), assigned, and use conventional commit prefixes
+(`chore(deps)`, `ci(deps)`).
